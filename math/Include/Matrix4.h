@@ -1,10 +1,10 @@
 #pragma once
-
+#include "DLL.h"
 #include <Vector4.h>
 
 class Vector3;
 
-class Matrix4 {
+class LIB_API Matrix4 {
 public:
 	Matrix4();
 	~Matrix4();

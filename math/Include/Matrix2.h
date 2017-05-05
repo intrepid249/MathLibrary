@@ -1,9 +1,9 @@
 #pragma once
-
+#include "DLL.h"
 
 class Vector2;
 
-class Matrix2 {
+class LIB_API Matrix2 {
 public:
 	Matrix2();
 	Matrix2(float *a_ptr);

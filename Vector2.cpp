@@ -52,7 +52,6 @@ Vector2& Vector2::operator *= (float a_scalar) {
 
 #pragma region Class Methods
 float Vector2::magnitude() {
-	float f = cos(30);
 	return sqrtf(x*x + y*y);
 }
 

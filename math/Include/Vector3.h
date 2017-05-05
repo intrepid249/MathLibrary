@@ -1,6 +1,7 @@
 #pragma once
+#include "DLL.h"
 
-class Vector3 {
+class LIB_API Vector3 {
 public:
 
 	Vector3();
@@ -15,6 +16,7 @@ public:
 	Vector3 operator / (const Vector3 &a_rhs) const;		// V3 = V3 / V3
 	Vector3 operator * (const float    a_rhs) const;		// V3 = V3 * f
 	Vector3 operator / (const float    a_rhs) const;		// V3 = V3 / f
+	LIB_API friend Vector3 operator * (float a_scalar, const Vector3& a_other);
 
 	Vector3& operator += (const Vector3 &a_rhs);			// V3 += V3
 	Vector3& operator -= (const Vector3 &a_rhs);			// V3 -= V3
@@ -46,5 +48,3 @@ public:
 		struct { float v[3]; };
 	};
 };
-
-Vector3 operator * (float a_scalar, const Vector3& a_other);

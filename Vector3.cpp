@@ -102,7 +102,6 @@ Vector3 Vector3::operator -() const {
 }
 
 float Vector3::magnitude() const {
-	float f = cos(30);
 	return sqrtf(x*x + y*y + z*z);
 }
 

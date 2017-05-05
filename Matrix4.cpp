@@ -4,11 +4,27 @@
 #include <memory.h>
 #include <math.h>
 
-Matrix4::~Matrix4() {
+
+Matrix4::Matrix4() {
 	*this = createIdentity();
 }
 
-Matrix4::Matrix4() {
+Matrix4::Matrix4(float *a_ptr) :
+	x1(a_ptr[0]), x2(a_ptr[1]), x3(a_ptr[2]), x4(a_ptr[3]),
+	y1(a_ptr[4]), y2(a_ptr[5]), y3(a_ptr[6]), y4(a_ptr[7]),
+	z1(a_ptr[8]), z2(a_ptr[9]), z3(a_ptr[10]), z4(a_ptr[11]),
+	w1(a_ptr[12]), w2(a_ptr[13]), w3(a_ptr[14]), w4(a_ptr[15]) {
+}
+
+Matrix4::Matrix4(float a_m1, float a_m2, float a_m3, float a_m4, float a_m5, float a_m6, float a_m7, float a_m8, float a_m9, float a_m10, float a_m11, float a_m12,
+	float a_m13, float a_m14, float a_m15, float a_m16) :
+	x1(a_m1), x2(a_m2), x3(a_m3), x4(a_m4),
+	y1(a_m5), y2(a_m6), y3(a_m7), y4(a_m8),
+	z1(a_m9), z2(a_m10), z3(a_m11), z4(a_m12),
+	w1(a_m13), w2(a_m14), w3(a_m15), w4(a_m16) {
+}
+
+Matrix4::~Matrix4() {
 }
 
 #pragma region Static Methods
@@ -61,22 +77,6 @@ void  Matrix4::set(float a_x1, float a_x2, float a_x3, float a_x4,
 	y1 = a_y1; y2 = a_y2; y3 = a_y3; y4 = a_y4;
 	z1 = a_z1; z2 = a_z2; z3 = a_z3; z4 = a_z4;
 	w1 = a_w1; w2 = a_w2; w3 = a_w3; w4 = a_w4;
-}
-
-
-Matrix4::Matrix4(float *a_ptr) :
-	x1(a_ptr[0]), x2(a_ptr[1]), x3(a_ptr[2]), x4(a_ptr[3]),
-	y1(a_ptr[4]), y2(a_ptr[5]), y3(a_ptr[6]), y4(a_ptr[7]),
-	z1(a_ptr[8]), z2(a_ptr[9]), z3(a_ptr[10]), z4(a_ptr[11]),
-	w1(a_ptr[12]), w2(a_ptr[13]), w3(a_ptr[14]), w4(a_ptr[15]) {
-}
-
-Matrix4::Matrix4(float a_m1, float a_m2, float a_m3, float a_m4, float a_m5, float a_m6, float a_m7, float a_m8, float a_m9, float a_m10, float a_m11, float a_m12,
-	float a_m13, float a_m14, float a_m15, float a_m16) :
-	x1(a_m1), x2(a_m2), x3(a_m3), x4(a_m4),
-	y1(a_m5), y2(a_m6), y3(a_m7), y4(a_m8),
-	z1(a_m9), z2(a_m10), z3(a_m11), z4(a_m12),
-	w1(a_m13), w2(a_m14), w3(a_m15), w4(a_m16) {
 }
 
 Vector4 Matrix4::operator * (const Vector4 &a_vec) const {

@@ -1,9 +1,10 @@
 #pragma once
+#include "DLL.h"
 #include <Vector3.h>
 #include <Vector2.h>
 
 
-class Matrix3 {
+class LIB_API Matrix3 {
 public:
 	Matrix3();
 	Matrix3(float *a_ptr);

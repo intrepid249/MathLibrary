@@ -115,7 +115,6 @@ Vector4 Vector4::operator -() const {
 
 #pragma region Class Methods
 float Vector4::magnitude() const {
-	float f = cosf(30);
 	return sqrtf(x*x + y*y + z*z + w*w);
 }
 

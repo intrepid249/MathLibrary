@@ -1,6 +1,7 @@
 #pragma once
+#include "DLL.h"
 
-class Vector2 {
+class LIB_API Vector2 {
 public:
 	Vector2();							// default
 	Vector2(float a_x, float a_y);		// parameterized
@@ -20,7 +21,7 @@ public:
 	Vector2& operator -= (const Vector2& a_rhs);							// V2 -= V2
 
 	Vector2 operator * (float a_scalar) const;								// V2 * f
-	friend Vector2 operator * (float a_scalar, const Vector2& a_rhs);		//  f * V2
+	LIB_API friend Vector2 operator * (float a_scalar, const Vector2& a_rhs);		//  f * V2
 	Vector2& operator *= (float a_scalar);									// V2 *= f
 #pragma endregion
 
