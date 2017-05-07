@@ -1,19 +1,37 @@
-#define _USE_MATH_DEFINES
-
 #include "Utility.h"
-#include <cmath>
 
-float degToRad(float degrees)
+template <typename T>
+T degToRad(T degrees)
 {
-	return degrees * (float)_PI_OVER_180;
+	return (T)(degrees * (float)_PI_OVER_180);
 }
 
-float radToDeg(float radians)
+template <typename T>
+T radToDeg(T radians)
 {
-	return radians * (float)_180_OVER_PI;
+	return (T)(radians * (float)_180_OVER_PI);
 }
 
-float LinearHalf(float x)
+template <typename T>
+T LinearHalf(T x)
 {
-	return x * 0.5f;
+	return (T)(x * 0.5f);
 }
+
+template float degToRad<float>(float degrees);
+template int degToRad<int>(int degrees);
+template short degToRad<short>(short degrees);
+template long degToRad<long>(long degrees);
+template double degToRad<double>(double degrees);
+
+template float radToDeg<float>(float degrees);
+template int radToDeg<int>(int degrees);
+template short radToDeg<short>(short degrees);
+template long radToDeg<long>(long degrees);
+template double radToDeg<double>(double degrees);
+
+template float LinearHalf<float>(float degrees);
+template int LinearHalf<int>(int degrees);
+template short LinearHalf<short>(short degrees);
+template long LinearHalf<long>(long degrees);
+template double LinearHalf<double>(double degrees);

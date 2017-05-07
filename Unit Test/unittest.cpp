@@ -19,6 +19,12 @@
 #include <Vector3.h>
 #include <Vector4.h>
 
+#define Matrix2 Matrix2<float>
+#define Matrix3 Matrix3<float>
+#define Matrix4 Matrix4<float>
+#define Vector2 Vector2<float>
+#define Vector3 Vector3<float>
+#define Vector4 Vector4<float>
 
 #pragma region testStuff
 
@@ -347,6 +353,6 @@ bool runUnitTests() {
 	TEST("Vector3 matrix translation D", v3c, Vector3(31.0490131378f, 39.2981109619f, 0));
 	TEST("Vector4 matrix translation C", v4b, Vector4(13.5f, -48.23f, -54, 0));
 	TEST("Vector4 matrix translation D", v4c, Vector4(31.0490131378f, 39.2981109619f, -54, 0));
-	
+
 	return true;
 }

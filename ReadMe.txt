@@ -1,29 +1,63 @@
+##############################
+INSTALLATION:
+##############################
+
 ========================================================================
-    STATIC LIBRARY : MathLib_Assignment Project Overview
+    STATIC LIBRARY :
 ========================================================================
 
-AppWizard has created this MathLib_Assignment library project for you.
+1. 	Copy the Include and LIB folders to a folder within the project that will
+	utilise the library.
+	
+2.	Open the project settings within Visual Studio and navigate to the
+	VC++ Directories.
+	
+3.	For the option labelled 'Include Directories', click in the field
+	and under the drop-down menu select edit. Now click the 'add new'
+	button and type in the Solution-relative directory to the Include
+	folder.
+	
+4.	For the option labelled 'Library Directories', click in the field
+	and under the drop-down menu select edit. Now click the 'add new'
+	button and type in the Solution-relative directory to the LIB folder.
+	
+5.	Under the 'Linker' drop down on the left hand side, select the 'Input'
+	option. Click the 'Additional Dependencies' field and select edit from
+	the drop-down menu. Add a new line and type in 'library.lib'
 
-No source files were created as part of your project.
+	
+========================================================================
+    DYNAMIC LINKED LIBRARY :
+========================================================================
 
+1. 	Copy the Include and DLL folders to a folder within the project that will
+	utilise the library.
+	
+2.	Open the project settings within Visual Studio and navigate to the VC++
+	Directories.
+	
+3.	For the option labelled 'Include Directories', click in the field
+	and under the drop-down menu select edit. Now click the 'add new'
+	button and type in the Solution-relative directory to the Include
+	folder.
 
-MathLib_Assignment.vcxproj
-    This is the main project file for VC++ projects generated using an Application Wizard.
-    It contains information about the version of Visual C++ that generated the file, and
-    information about the platforms, configurations, and project features selected with the
-    Application Wizard.
+4.	For the option labelled 'Library Directories', click in the field
+	and under the drop-down menu select edit. Now click the 'add new'
+	button and type in the Solution-relative directory to the DLL folder.
+	
+5.	Depending on the project setup, you may also have to navigate to the Debug
+	option and set the 'Working Directory' to the path of the DLL folder.
+	
 
-MathLib_Assignment.vcxproj.filters
-    This is the filters file for VC++ projects generated using an Application Wizard. 
-    It contains information about the association between the files in your project 
-    and the filters. This association is used in the IDE to show grouping of files with
-    similar extensions under a specific node (for e.g. ".cpp" files are associated with the
-    "Source Files" filter).
+##############################
+ABOUT:
+##############################
 
-/////////////////////////////////////////////////////////////////////////////
-Other notes:
+All classes contained within the Math library are templated and will require
+instantiation using the template parameter list.
 
-AppWizard uses "TODO:" comments to indicate parts of the source code you
-should add to or customize.
+For example:
+Vector2<float> v2;
 
-/////////////////////////////////////////////////////////////////////////////
+will call the default constructor for the Vector2 class using floats for all of
+the instance's member variables and functions.

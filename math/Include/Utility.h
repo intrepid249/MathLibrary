@@ -6,6 +6,11 @@
 #define _PI_OVER_180 0.01745329		// 1 radian
 #define _180_OVER_PI 57.29578		 
 
-LIB_API float degToRad(float degrees);
-LIB_API float radToDeg(float radians);
-LIB_API float LinearHalf(float x);
+template <typename T>
+LIB_API T degToRad(T degrees);
+
+template <typename T>
+LIB_API T radToDeg(T radians);
+
+template <typename T>
+LIB_API T LinearHalf(T x);

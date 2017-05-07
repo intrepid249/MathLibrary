@@ -1,123 +1,154 @@
 #include "Vector3.h"
 #include <math.h>
 
-Vector3::Vector3() : x(0), y(0), z(0) {
+template <class T>
+Vector3<T>::Vector3() : x(0), y(0), z(0) {
 }
 
-Vector3::Vector3(float a_x, float a_y, float a_z) : x(a_x), y(a_y), z(a_z) {
+template <class T>
+Vector3<T>::Vector3(T a_x, T a_y, T a_z) : x(a_x), y(a_y), z(a_z) {
 }
 
-void Vector3::get(float& a_x, float& a_y, float& a_z) const {
+template <class T>
+void Vector3<T>::get(T& a_x, T& a_y, T& a_z) const {
 	a_x = x;
 	a_y = y;
 	a_z = z;
 	return;
 }
 
-void Vector3::set(const float& a_x, const float& a_y, const float& a_z) {
+template <class T>
+void Vector3<T>::set(const T& a_x, const T& a_y, const T& a_z) {
 	x = a_x;
 	y = a_y;
 	z = a_z;
 	return;
 }
 
-Vector3 Vector3::operator + (const Vector3 &a_rhs) const {
-	return Vector3(x + a_rhs.x, y + a_rhs.y, z + a_rhs.z);
+#pragma region Arithmetic Operators
+template <class T>
+Vector3<T> Vector3<T>::operator + (const Vector3 &a_rhs) const {
+	return Vector3<T>(x + a_rhs.x, y + a_rhs.y, z + a_rhs.z);
 }
 
-Vector3 Vector3::operator - (const Vector3 &a_rhs) const {
-	return Vector3(x - a_rhs.x, y - a_rhs.y, z - a_rhs.z);
+template <class T>
+Vector3<T> Vector3<T>::operator - (const Vector3 &a_rhs) const {
+	return Vector3<T>(x - a_rhs.x, y - a_rhs.y, z - a_rhs.z);
 }
 
-Vector3 Vector3::operator * (const Vector3 &a_rhs) const {
-	return Vector3(x * a_rhs.x, y * a_rhs.y, z * a_rhs.z);
+template <class T>
+Vector3<T> Vector3<T>::operator * (const Vector3 &a_rhs) const {
+	return Vector3<T>(x * a_rhs.x, y * a_rhs.y, z * a_rhs.z);
 }
 
-Vector3 Vector3::operator / (const Vector3 &a_rhs) const {
-	return Vector3(x / a_rhs.x, y / a_rhs.y, z / a_rhs.z);
+template <class T>
+Vector3<T> Vector3<T>::operator / (const Vector3 &a_rhs) const {
+	return Vector3<T>(x / a_rhs.x, y / a_rhs.y, z / a_rhs.z);
 }
 
-Vector3 Vector3::operator * (const float a_rhs) const {
-	return Vector3(x * a_rhs, y * a_rhs, z * a_rhs);
+template <class T>
+Vector3<T> Vector3<T>::operator * (const T a_rhs) const {
+	return Vector3<T>(x * a_rhs, y * a_rhs, z * a_rhs);
 }
 
-Vector3 Vector3::operator / (const float a_rhs) const {
-	return Vector3(x / a_rhs, y / a_rhs, z / a_rhs);
+template <class T>
+Vector3<T> Vector3<T>::operator / (const T a_rhs) const {
+	return Vector3<T>(x / a_rhs, y / a_rhs, z / a_rhs);
 }
 
-Vector3& Vector3::operator += (const Vector3 &a_rhs) {
-	x += a_rhs.x;
-	y += a_rhs.y;
-	z += a_rhs.z;
+template <class T>
+Vector3<T>& Vector3<T>::operator += (const Vector3 &a_rhs) {
+	*this = *this + a_rhs;
 	return *this;
 }
 
-Vector3& Vector3::operator -= (const Vector3 &a_rhs) {
-	x -= a_rhs.x;
-	y -= a_rhs.y;
-	z -= a_rhs.z;
+template <class T>
+Vector3<T>& Vector3<T>::operator -= (const Vector3 &a_rhs) {
+	*this = *this - a_rhs;
 	return *this;
 }
 
-Vector3& Vector3::operator *= (const Vector3 &a_rhs) {
-	x *= a_rhs.x;
-	y *= a_rhs.y;
-	z *= a_rhs.z;
+template <class T>
+Vector3<T>& Vector3<T>::operator *= (const Vector3 &a_rhs) {
+	*this = *this * a_rhs;
 	return *this;
 }
 
-Vector3& Vector3::operator /= (const Vector3 &a_rhs) {
-	x /= a_rhs.x;
-	y /= a_rhs.y;
-	z /= a_rhs.z;
+template <class T>
+Vector3<T>& Vector3<T>::operator /= (const Vector3 &a_rhs) {
 	*this = *this / a_rhs;
 	return *this;
 
 }
 
-Vector3& Vector3::operator *= (const float a_rhs) {
-	x *= a_rhs;
-	y *= a_rhs;
-	z *= a_rhs;
+template <class T>
+Vector3<T>& Vector3<T>::operator *= (const T a_rhs) {
+	*this = *this * a_rhs;
 	return *this;
 }
 
-Vector3& Vector3::operator /= (const float a_rhs) {
-	x /= a_rhs;
-	y /= a_rhs;
-	z /= a_rhs;
+template <class T>
+Vector3<T>& Vector3<T>::operator /= (const T a_rhs) {
+	*this = *this / a_rhs;
 	return *this;
 }
+#pragma endregion
 
-bool Vector3::operator == (const Vector3 &a_rhs) const {
+#pragma region Comparative Operators
+template <class T>
+bool Vector3<T>::operator == (const Vector3 &a_rhs) const {
 	return (x == a_rhs.x && y == a_rhs.y && z == a_rhs.z);
 }
 
-bool Vector3::operator != (const Vector3 &a_rhs) const {
+template <class T>
+bool Vector3<T>::operator != (const Vector3 &a_rhs) const {
 	return (x != a_rhs.x || y != a_rhs.y || z != a_rhs.z);
 }
+#pragma endregion
 
-Vector3 Vector3::operator -() const {
+#pragma region Base Operators
+template <class T>
+Vector3<T> Vector3<T>::operator -() const {
 	return Vector3(-x, -y, -z);
 }
 
-float Vector3::magnitude() const {
-	return sqrtf(x*x + y*y + z*z);
+template<class T>
+Vector3<T>::operator T*() { return &x; }
+
+template<class T>
+T & Vector3<T>::operator[](unsigned int index) { return v[index]; }
+
+template <class T>
+Vector3<T> Vector3<T>::operator = (const Vector3 &a_rhs) {
+	x = a_rhs.x;
+	y = a_rhs.y;
+	z = a_rhs.z;
+	return *this;
+}
+#pragma endregion
+
+#pragma region Class Methods
+template <class T>
+T Vector3<T>::magnitude() const {
+	return (T)sqrt(double(x*x + y*y + z*z));
 }
 
-float Vector3::dot(const Vector3 &a_rhs) const {
+template <class T>
+T Vector3<T>::dot(const Vector3 &a_rhs) const {
 	return x * a_rhs.x + y * a_rhs.y + z * a_rhs.z;
 }
 
-Vector3 Vector3::cross(const Vector3 & a_rhs) const {
-	return Vector3(y * a_rhs.z - z * a_rhs.y,
+template <class T>
+Vector3<T> Vector3<T>::cross(const Vector3 & a_rhs) const {
+	return Vector3<T>(y * a_rhs.z - z * a_rhs.y,
 		z * a_rhs.x - x * a_rhs.z,
 		x * a_rhs.y - y * a_rhs.x);
 
 }
 
-Vector3& Vector3::normalise() {
-	float mag = magnitude();
+template <class T>
+Vector3<T>& Vector3<T>::normalise() {
+	T mag = magnitude();
 	if (mag == 0) return(*this);
 	x /= mag;
 	y /= mag;
@@ -126,20 +157,18 @@ Vector3& Vector3::normalise() {
 	return (*this);
 }
 
-Vector3 Vector3::getNormalised() {
-	float mag = magnitude();
-	if (mag == 0) return Vector3(x, y, z);
-	return Vector3(x / mag, y / mag, z / mag);
+template <class T>
+Vector3<T> Vector3<T>::getNormalised() {
+	T mag = magnitude();
+	if (mag == 0) return Vector3<T>(x, y, z);
+	return Vector3<T>(x / mag, y / mag, z / mag);
 
 }
+#pragma endregion
 
-Vector3 operator*(float a_scalar, const Vector3 & a_rhs) {
-	return Vector3(a_rhs.x * a_scalar, a_rhs.y * a_scalar, a_rhs.z * a_scalar);
-}
-
-Vector3  Vector3::operator = (const Vector3 &a_rhs) {
-	x = a_rhs.x;
-	y = a_rhs.y;
-	z = a_rhs.z;
-	return *this;
-}
+/*Instantiate every possible use of the template classes*/
+template class Vector3<float>;
+template class Vector3<int>;
+template class Vector3<double>;
+template class Vector3<long>;
+template class Vector3<short>;

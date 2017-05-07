@@ -4,93 +4,108 @@
 #include <memory.h>
 #include <math.h>
 
-
-Matrix4::Matrix4() {
+template <class T>
+Matrix4<T>::Matrix4() {
 	*this = createIdentity();
 }
 
-Matrix4::Matrix4(float *a_ptr) :
+template <class T>
+Matrix4<T>::Matrix4(T *a_ptr) :
 	x1(a_ptr[0]), x2(a_ptr[1]), x3(a_ptr[2]), x4(a_ptr[3]),
 	y1(a_ptr[4]), y2(a_ptr[5]), y3(a_ptr[6]), y4(a_ptr[7]),
 	z1(a_ptr[8]), z2(a_ptr[9]), z3(a_ptr[10]), z4(a_ptr[11]),
 	w1(a_ptr[12]), w2(a_ptr[13]), w3(a_ptr[14]), w4(a_ptr[15]) {
 }
 
-Matrix4::Matrix4(float a_m1, float a_m2, float a_m3, float a_m4, float a_m5, float a_m6, float a_m7, float a_m8, float a_m9, float a_m10, float a_m11, float a_m12,
-	float a_m13, float a_m14, float a_m15, float a_m16) :
+template <class T>
+Matrix4<T>::Matrix4(T a_m1, T a_m2, T a_m3, T a_m4, T a_m5, T a_m6, T a_m7, T a_m8, T a_m9, T a_m10, T a_m11, T a_m12,
+	T a_m13, T a_m14, T a_m15, T a_m16) :
 	x1(a_m1), x2(a_m2), x3(a_m3), x4(a_m4),
 	y1(a_m5), y2(a_m6), y3(a_m7), y4(a_m8),
 	z1(a_m9), z2(a_m10), z3(a_m11), z4(a_m12),
 	w1(a_m13), w2(a_m14), w3(a_m15), w4(a_m16) {
 }
 
-Matrix4::~Matrix4() {
+template<class T>
+Matrix4<T>::Matrix4(const Matrix4 & rhs) {
+	v[0] = rhs.v[0];
+	v[1] = rhs.v[1];
+	v[2] = rhs.v[2];
+	v[3] = rhs.v[3];
 }
 
 #pragma region Static Methods
-Matrix4 Matrix4::createIdentity() {
-	return Matrix4(1.0f, 0.0f, 0.0f, 0.f,
-		0.0f, 1.0f, 0.0f, 0.f,
-		0.0f, 0.0f, 1.0f, 0.f,
-		0.f, 0.f, 0.f, 1.f);
+template <class T>
+Matrix4<T> Matrix4<T>::createIdentity() {
+	return Matrix4<T>(1, 0, 0, 0,
+		0, 1, 0, 0,
+		0, 0, 1, 0,
+		0, 0, 0, 1);
 }
 
-Matrix4 Matrix4::createTranslation(float a_x, float a_y, float a_z, float a_w) {
-	return Matrix4(1.0f, 0.0f, 0.0f, 0.f,
-		0.0f, 1.0f, 0.0f, 0.f,
-		0.f, 0.f, 1.f, 0.f,
+template <class T>
+Matrix4<T> Matrix4<T>::createTranslation(T a_x, T a_y, T a_z, T a_w) {
+	return Matrix4<T>(1, 0, 0, 0,
+		0, 1, 0, 0,
+		0, 0, 1, 0,
 		a_x, a_y, a_z, a_w);
 }
 
-Matrix4 Matrix4::createTranslation(const Vector3 &a_vec, float a_w) {
-	return Matrix4(1.0f, 0.0f, 0.0f, 0.f,
-		0.0f, 1.0f, 0.0f, 0.f,
-		0.f, 0.f, 1.f, 0.f,
+template <class T>
+Matrix4<T> Matrix4<T>::createTranslation(const Vector3<T> &a_vec, T a_w) {
+	return Matrix4<T>(1, 0, 0, 0,
+		0, 1, 0, 0,
+		0, 0, 1, 0,
 		a_vec.x, a_vec.y, a_vec.z, a_w);
 }
 
-Matrix4 Matrix4::createRotation(float a_rot) {
-	return Matrix4(cosf(a_rot), sinf(a_rot), 0.0f, 0.f,
-		-sinf(a_rot), cosf(a_rot), 0.0f, 0.f,
-		0.f, 0.f, 1.f, 0.f,
-		0.0f, 0.0f, 0.f, 1.0f);
+template <class T>
+Matrix4<T> Matrix4<T>::createRotation(T a_rot) {
+	return Matrix4<T>((T)cos((double)a_rot), (T)sin((double)a_rot), 0, 0,
+		(T)-sin((double)a_rot), (T)cos((double)a_rot), 0, 0,
+		0, 0, 1, 0,
+		0, 0, 0, 1);
 }
 
-Matrix4 Matrix4::createScale(float a_x, float a_y, float a_z) {
+template <class T>
+Matrix4<T> Matrix4<T>::createScale(T a_x, T a_y, T a_z) {
 	return Matrix4(
-		a_x, 0.f, 0.f, 0.f,
-		0.f, a_y, 0.f, 0.f,
-		0.f, 0.f, a_z, 0.f,
-		0.f, 0.f, 0.f, 1.f);
+		a_x, 0, 0, 0,
+		0, a_y, 0, 0,
+		0, 0, a_z, 0,
+		0, 0, 0, 1);
 }
 #pragma endregion
 
-
-void  Matrix4::set(float *a_ptr) {
+#pragma region Operators
+template<class T>
+Vector4<T> & Matrix4<T>::operator[](unsigned int a_index) {
+	return v[a_index];
 }
 
-void  Matrix4::set(float a_x1, float a_x2, float a_x3, float a_x4,
-	float a_y1, float a_y2, float a_y3, float a_y4,
-	float a_z1, float a_z2, float a_z3, float a_z4,
-	float a_w1, float a_w2, float a_w3, float a_w4) {
-	x1 = a_x1; x2 = a_x2; x3 = a_x3; x4 = a_x4;
-	y1 = a_y1; y2 = a_y2; y3 = a_y3; y4 = a_y4;
-	z1 = a_z1; z2 = a_z2; z3 = a_z3; z4 = a_z4;
-	w1 = a_w1; w2 = a_w2; w3 = a_w3; w4 = a_w4;
+template<class T>
+Matrix4<T> Matrix4<T>::operator=(const Matrix4 & rhs) {
+	memcpy(m, rhs.m, sizeof(T) * 16);
+	return *this;
 }
 
-Vector4 Matrix4::operator * (const Vector4 &a_vec) const {
-	return Vector4(x1 * a_vec.x + y1 * a_vec.y + z1 * a_vec.z + w1 * a_vec.w,
+template<class T>
+Matrix4<T>::operator T*() { return m; }
+
+template <class T>
+Vector4<T> Matrix4<T>::operator * (const Vector4<T> &a_vec) const {
+	return Vector4<T>(x1 * a_vec.x + y1 * a_vec.y + z1 * a_vec.z + w1 * a_vec.w,
 		x2 * a_vec.x + y2 * a_vec.y + z2 * a_vec.z + w2 * a_vec.w,
 		x3 * a_vec.x + y3 * a_vec.y + z3 * a_vec.z + w3 * a_vec.w,
 		x4 * a_vec.x + y4 * a_vec.y + z4 * a_vec.z + w4 * a_vec.w);
 }
 
-Matrix4 Matrix4::operator *(const Matrix4 &a_rhs) const {
-	Matrix4 tmp;
+template <class T>
+Matrix4<T> Matrix4<T>::operator *(const Matrix4 &a_rhs) const {
+	Matrix4<T> tmp;
 	// We are in column major, so our memory is storing 'rows' of the column-vectors
-	for (auto c = 0; c < 4; c++) {
-		for (auto r = 0; r < 4; r++) {
+	for (unsigned int c = 0; c < 4; c++) {
+		for (unsigned int r = 0; r < 4; r++) {
 			tmp.m_floats[c][r] = (m_floats[0][r] * a_rhs.m_floats[c][0] +
 				m_floats[1][r] * a_rhs.m_floats[c][1] +
 				m_floats[2][r] * a_rhs.m_floats[c][2] +
@@ -100,29 +115,57 @@ Matrix4 Matrix4::operator *(const Matrix4 &a_rhs) const {
 
 	return tmp;
 }
+#pragma endregion
 
-
-void Matrix4::setRotateX(float a_rot) {
-	set(1.0f, 0.0f, 0.0f, 0.0f,
-		0.0f, cosf(a_rot), sinf(a_rot), 0.0f,
-		0.0f, -sinf(a_rot), cosf(a_rot), 0.0f,
-		0.0f, 0.0f, 0.0f, 1.0f);
+#pragma region Class Methods
+template <class T>
+void  Matrix4<T>::set(T *a_ptr) {
 }
 
-void Matrix4::setRotateY(float a_rot) {
-	set(cosf(a_rot), 0.0f, -sinf(a_rot), 0.0f,
-		0.0f, 1.0f, 0.0f, 0.0f,
-		sinf(a_rot), 0.0f, cosf(a_rot), 0.0f,
-		0.0f, 0.0f, 0.0f, 1.0f);
+template <class T>
+void  Matrix4<T>::set(T a_x1, T a_x2, T a_x3, T a_x4,
+	T a_y1, T a_y2, T a_y3, T a_y4,
+	T a_z1, T a_z2, T a_z3, T a_z4,
+	T a_w1, T a_w2, T a_w3, T a_w4) {
+	x1 = a_x1; x2 = a_x2; x3 = a_x3; x4 = a_x4;
+	y1 = a_y1; y2 = a_y2; y3 = a_y3; y4 = a_y4;
+	z1 = a_z1; z2 = a_z2; z3 = a_z3; z4 = a_z4;
+	w1 = a_w1; w2 = a_w2; w3 = a_w3; w4 = a_w4;
 }
 
-void Matrix4::setRotateZ(float a_rot) {
-	set(cosf(a_rot), sinf(a_rot), 0.0f, 0.0f,
-		-sinf(a_rot), cosf(a_rot), 0.0f, 0.0f,
-		0.0f, 0.0f, 1.0f, 0.0f,
-		0.0f, 0.0f, 0.0f, 1.0f);
+template <class T>
+void Matrix4<T>::setRotateX(T a_rot) {
+	set(1, 0, 0, 0,
+		0, (T)cos((double)a_rot), (T)sin((double)a_rot), 0,
+		0, (T)-sin((double)a_rot), (T)cos((double)a_rot), 0,
+		0, 0, 0, 1);
 }
 
-float Matrix4::getRotationZ() {
-	return atan2f(x2, x1);
+template <class T>
+void Matrix4<T>::setRotateY(T a_rot) {
+	set((T)cos((double)a_rot), 0, (T)-sin((double)a_rot), 0,
+		0, 1, 0, 0,
+		(T)sin((double)a_rot), 0, (T)cos((double)a_rot), 0,
+		0, 0, 0, 1);
 }
+
+template <class T>
+void Matrix4<T>::setRotateZ(T a_rot) {
+	set((T)cos((double)a_rot), (T)sin((double)a_rot), 0, 0,
+		(T)-sin((double)a_rot), (T)cos((double)a_rot), 0, 0,
+		0, 0, 1, 0,
+		0, 0, 0, 1);
+}
+
+template <class T>
+T Matrix4<T>::getRotationZ() {
+	return (T)atan2((double)x2, (double)x1);
+}
+#pragma endregion
+
+/*Instantiate every possible use of the template classes*/
+template class Matrix4<float>;
+template class Matrix4<int>;
+template class Matrix4<double>;
+template class Matrix4<long>;
+template class Matrix4<short>;
