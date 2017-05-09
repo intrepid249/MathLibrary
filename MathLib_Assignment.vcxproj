@@ -45,6 +45,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <UseDebugLibraries>false</UseDebugLibraries>
@@ -123,8 +124,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(SolutionDir)math\</OutDir>
-    <TargetName>math</TargetName>
+    <OutDir>$(SolutionDir)math\LIB\</OutDir>
+    <TargetName>math_d</TargetName>
     <IncludePath>$(SolutionDir)math/Include/;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)math/;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
@@ -138,7 +139,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='LIB|Win32'">
     <OutDir>$(SolutionDir)math\LIB\</OutDir>
     <TargetName>math</TargetName>
-    <IncludePath>$(SolutionDir)math/Include/;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)math\Include\;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)math/LIB/;$(LibraryPath)</LibraryPath>
     <TargetExt>.lib</TargetExt>
   </PropertyGroup>
