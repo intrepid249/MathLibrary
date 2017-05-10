@@ -68,6 +68,11 @@ Vector2<T>& Vector2<T>::operator -= (const Vector2& a_rhs) {
 	return *this;
 }
 
+template<class T>
+Vector2<T> & Vector2<T>::operator*(const Vector2 & rhs) {
+	return Vector2<T>(x * rhs.x, y * rhs.y);
+}
+
 template <class T>
 Vector2<T> Vector2<T>::operator * (T a_scalar) const {
 	return Vector2<T>(x * a_scalar, y * a_scalar);
