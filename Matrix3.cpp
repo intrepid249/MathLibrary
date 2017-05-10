@@ -150,7 +150,6 @@ template <class T>
 void Matrix3<T>::setTranslation(T a_x, T a_y) {
 	z1 = a_x; // x-component of the translation axis
 	z2 = a_y; // y-component of the translation axis
-
 }
 
 // only set the translation component of the matrix
@@ -187,9 +186,36 @@ void Matrix3<T>::setRotateZ(T a_rot) {
 	y2 = (T)cos((double)a_rot);
 }
 
+template<class T>
+T Matrix3<T>::getRotationX() const {
+	return T(atan2((double)y3, (double)y2));
+}
+
+template<class T>
+T Matrix3<T>::getRotationY() const {
+	return T(atan2((double)x3, (double)x1));
+}
+
 template <class T>
-T Matrix3<T>::getRotationZ() {
+T Matrix3<T>::getRotationZ() const {
 	return (T)atan2((double)x2, (double)x1);
+}
+
+template<class T>
+void Matrix3<T>::setScale(const Vector2<T>& a_vec) {
+	x1 = a_vec.x;
+	y2 = a_vec.x;
+}
+
+template<class T>
+void Matrix3<T>::setScale(T a_x, T a_y) {
+	x1 = a_x;
+	y2 = a_y;
+}
+
+template<class T>
+Vector2<T> Matrix3<T>::getScale() const {
+	return Vector2<T>(x1, y2);
 }
 
 // add x and y onto the translation component of the matrix
